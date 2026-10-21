@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PriyaMart Admin Dashboard</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #0f172a;
+            color: white;
+        }
+
+        /* Header */
+        .header {
+            background: #1e293b;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .header h1 {
+            color: #60a5fa;
+            font-size: 28px;
+        }
+
+        .header span {
+            color: #cbd5e1;
+            font-size: 15px;
+        }
+
+        /* Main Container */
+        .container {
+            padding: 40px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .welcome {
+            margin-bottom: 30px;
+        }
+
+        .welcome h2 {
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .welcome p {
+            color: #94a3b8;
+        }
+
+        /* Cards */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .card {
+            background: #1e293b;
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid #334155;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            border-color: #60a5fa;
+        }
+
+        .icon {
+            font-size: 35px;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            color: #cbd5e1;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .number {
+            font-size: 35px;
+            font-weight: bold;
+            color: #60a5fa;
+        }
+
+        /* Admin Actions */
+        .actions {
+            margin-top: 40px;
+            background: #1e293b;
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid #334155;
+        }
+
+        .actions h2 {
+            margin-bottom: 20px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 12px 22px;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .blue {
+            background: #2563eb;
+        }
+
+        .green {
+            background: #16a34a;
+        }
+
+        .orange {
+            background: #ea580c;
+        }
+
+        .red {
+            background: #dc2626;
+        }
+
+        .btn:hover {
+            opacity: 0.8;
+            transform: scale(1.03);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 40px;
+            color: #64748b;
+        }
+
+        /* Responsive */
+        @media (max-width: 800px) {
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                padding: 20px;
+            }
+
+            .container {
+                padding: 25px;
+            }
+        }
+    .product-image{width:100%;max-width:280px;height:190px;object-fit:cover;border-radius:16px;display:block;margin:0 auto 14px;}
+</style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <h1>🛒 PriyaMart</h1>
+        <span>Admin Panel</span>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+
+        <div class="welcome">
+            <h2>Welcome, Admin 👋</h2>
+            <p>Manage your PriyaMart e-commerce website from here.</p>
+        </div>
+
+        <!-- Dashboard Cards -->
+        <div class="cards">
+
+            <div class="card">
+                <div class="icon">👥</div>
+                <h3>Total Users</h3>
+                <div class="number" id="userCount">0</div>
+            </div>
+
+            <div class="card">
+                <div class="icon">📦</div>
+                <h3>Total Products</h3>
+                <div class="number" id="productCount">0</div>
+            </div>
+
+            <div class="card">
+                <div class="icon">🛍️</div>
+                <h3>Total Orders</h3>
+                <div class="number" id="orderCount">0</div>
+            </div>
+
+        </div>
+
+        <!-- Admin Actions -->
+        <div class="actions">
+
+            <h2>Admin Actions</h2>
+
+            <div class="buttons">
+
+                <a href="#" class="btn blue">
+                    👥 Manage Users
+                </a>
+
+                <a href="#" class="btn green">
+                    📦 Manage Products
+                </a>
+
+                <a href="#" class="btn orange">
+                    🛍️ View Orders
+                </a>
+
+                <a href="/login.html" class="btn red">
+                    🚪 Logout
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>© 2026 PriyaMart | Admin Dashboard</p>
+    </div>
+
+<script>fetch("/api/admin/stats").then(r=>r.json()).then(s=>{document.getElementById("userCount").innerText=s.users;document.getElementById("productCount").innerText=s.products;document.getElementById("orderCount").innerText=s.orders;});</script>
+</body>
+</html>

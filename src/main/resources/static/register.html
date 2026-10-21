@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PriyaMart - Register</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #0f172a, #1e3a8a);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .register-container {
+            width: 420px;
+            background: #1e293b;
+            padding: 35px;
+            border-radius: 18px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .logo {
+            text-align: center;
+            font-size: 32px;
+            font-weight: bold;
+            color: #60a5fa;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #94a3b8;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 7px;
+            font-size: 14px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 8px;
+            background: #334155;
+            color: white;
+            font-size: 15px;
+            outline: none;
+        }
+
+        input:focus,
+        select:focus {
+            outline: 2px solid #3b82f6;
+        }
+
+        .password-box {
+            position: relative;
+        }
+
+        .password-box input {
+            padding-right: 70px;
+        }
+
+        .show-password {
+            position: absolute;
+            right: 10px;
+            top: 12px;
+            background: none;
+            border: none;
+            color: #60a5fa;
+            cursor: pointer;
+        }
+
+        .register-btn {
+            width: 100%;
+            padding: 13px;
+            margin-top: 25px;
+            background: #16a34a;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .register-btn:hover {
+            background: #15803d;
+        }
+
+        .error {
+            background: #7f1d1d;
+            color: #fecaca;
+            padding: 10px;
+            border-radius: 7px;
+            margin-top: 15px;
+            display: none;
+            text-align: center;
+        }
+
+        .success {
+            background: #14532d;
+            color: #bbf7d0;
+            padding: 10px;
+            border-radius: 7px;
+            margin-top: 15px;
+            display: none;
+            text-align: center;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #94a3b8;
+        }
+
+        .login-link a {
+            color: #60a5fa;
+            text-decoration: none;
+        }
+
+        .back-home {
+            text-align: center;
+            margin-top: 18px;
+        }
+
+        .back-home a {
+            color: #94a3b8;
+            text-decoration: none;
+        }
+
+        .login-link a:hover,
+        .back-home a:hover {
+            color: white;
+        }
+
+        @media (max-width: 500px) {
+            .register-container {
+                width: 90%;
+                padding: 25px;
+            }
+        }
+    .product-image{width:100%;max-width:280px;height:190px;object-fit:cover;border-radius:16px;display:block;margin:0 auto 14px;}
+</style>
+</head>
+
+<body>
+
+<div class="register-container">
+
+    
+
+    <p class="subtitle">
+        Create your account and start shopping!
+    </p>
+
+
+    <form id="registerForm">
+
+        <!-- Full Name -->
+        <label>Full Name</label>
+
+        <input
+            type="text"
+            id="name"
+            placeholder="Enter your full name"
+        >
+
+
+        <!-- Email -->
+        <label>Email Address</label>
+
+        <input
+            type="email"
+            id="email"
+            placeholder="Enter your email"
+        >
+
+
+        <!-- Password -->
+        <label>Password</label>
+
+        <div class="password-box">
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Create a password"
+            >
+
+            <button
+                type="button"
+                class="show-password"
+                onclick="togglePassword()">
+                Show
+            </button>
+
+        </div>
+
+
+        <!-- Role -->
+        <label>Select Account Type</label>
+
+        <select id="role">
+
+            <option value="Buyer">
+                🛒 Buyer
+            </option>
+
+            <option value="Seller">
+                📦 Seller
+            </option>
+
+        </select>
+
+
+        <!-- Messages -->
+        <div class="error" id="errorMessage"></div>
+
+        <div class="success" id="successMessage">
+            Account created successfully! 🎉
+        </div>
+
+
+        <!-- Register Button -->
+        <button
+            type="submit"
+            class="register-btn"
+            id="registerBtn">
+
+            Create Account
+
+        </button>
+
+    </form>
+
+
+    <!-- Login -->
+    <div class="login-link">
+
+        Already have an account?
+
+        <a href="login.html">
+            Login
+        </a>
+
+    </div>
+
+
+    <!-- Home -->
+    <div class="back-home">
+
+        <a href="index.html">
+            ← Back to Home
+        </a>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    // Show / Hide Password
+    function togglePassword() {
+
+        const password =
+            document.getElementById("password");
+
+        const button =
+            document.querySelector(".show-password");
+
+        if (password.type === "password") {
+
+            password.type = "text";
+            button.innerText = "Hide";
+
+        } else {
+
+            password.type = "password";
+            button.innerText = "Show";
+        }
+    }
+
+
+    // Registration Validation
+document.getElementById("registerForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
+    const name=document.getElementById("name").value.trim();
+    const email=document.getElementById("email").value.trim();
+    const password=document.getElementById("password").value.trim();
+    const role=document.getElementById("role").value;
+    const errorMessage=document.getElementById("errorMessage");
+    const successMessage=document.getElementById("successMessage");
+    const registerBtn=document.getElementById("registerBtn");
+
+    errorMessage.style.display="none"; successMessage.style.display="none";
+    if (!name) { errorMessage.innerText="Please enter your full name."; errorMessage.style.display="block"; return; }
+    if (!email || !email.includes("@")) { errorMessage.innerText="Please enter a valid email address."; errorMessage.style.display="block"; return; }
+    if (password.length<6) { errorMessage.innerText="Password must contain at least 6 characters."; errorMessage.style.display="block"; return; }
+
+    registerBtn.innerText="Creating Account..."; registerBtn.disabled=true;
+    try {
+        const response=await fetch("/api/auth/register",{
+            method:"POST",headers:{"Content-Type":"application/json"},
+            body:JSON.stringify({name,email,password,role})
+        });
+        const result=await response.json();
+        if(!response.ok) throw new Error(result.message || "Registration failed.");
+        successMessage.innerText="Account created successfully! 🎉";
+        successMessage.style.display="block"; registerBtn.innerText="Account Created ✓";
+        setTimeout(()=>window.location.href="/login.html",1200);
+    } catch(error) {
+        errorMessage.innerText=error.message; errorMessage.style.display="block";
+        registerBtn.innerText="Create Account"; registerBtn.disabled=false;
+    }
+});
+</script>
+
+</body>
+</html>

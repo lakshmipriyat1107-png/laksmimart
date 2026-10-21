@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PriyaMart - Seller Dashboard</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: white;
+        }
+
+        /* Header */
+        .header {
+            background: #1e293b;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #60a5fa;
+        }
+
+        .logout {
+            background: #dc2626;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 30px;
+        }
+
+        .welcome {
+            margin-bottom: 25px;
+        }
+
+        .welcome h2 {
+            margin-bottom: 8px;
+        }
+
+        .welcome p {
+            color: #94a3b8;
+        }
+
+        /* Statistics */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: #1e293b;
+            padding: 22px;
+            border-radius: 12px;
+        }
+
+        .stat-card h3 {
+            color: #94a3b8;
+            margin-bottom: 10px;
+        }
+
+        .stat-card p {
+            font-size: 28px;
+            font-weight: bold;
+            color: #60a5fa;
+        }
+
+        /* Add Product */
+        .add-product {
+            background: #1e293b;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .add-product h2 {
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr auto;
+            gap: 12px;
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 13px;
+            border: none;
+            border-radius: 8px;
+            background: #334155;
+            color: white;
+            outline: none;
+        }
+
+        .add-btn {
+            padding: 13px 20px;
+            background: #16a34a;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .add-btn:hover {
+            background: #15803d;
+        }
+
+        /* Search */
+        .search-box {
+            background: #1e293b;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 8px;
+            background: #334155;
+            color: white;
+            outline: none;
+        }
+
+        /* Products */
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            background: #1e293b;
+            padding: 20px;
+            border-radius: 12px;
+            transition: 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-icon {
+            font-size: 45px;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .product-card h3 {
+            margin-bottom: 8px;
+        }
+
+        .category {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        .price {
+            color: #22c55e;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 12px 0;
+        }
+
+        .delete-btn {
+            width: 100%;
+            padding: 9px;
+            background: #dc2626;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        .delete-btn:hover {
+            background: #b91c1c;
+        }
+
+        .empty {
+            text-align: center;
+            color: #94a3b8;
+            padding: 30px;
+            display: none;
+        }
+
+        /* Mobile */
+        @media (max-width: 700px) {
+
+            .header {
+                padding: 15px 20px;
+            }
+
+            .logo {
+                font-size: 22px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .form-group {
+                grid-template-columns: 1fr;
+            }
+        }
+    .product-image{width:100%;max-width:280px;height:190px;object-fit:cover;border-radius:16px;display:block;margin:0 auto 14px;}
+</style>
+</head>
+
+<body>
+
+<!-- Header -->
+
+<div class="header">
+
+    
+
+    
+
+</div>
+
+
+<div class="container">
+
+    <!-- Welcome -->
+
+    <div class="welcome">
+
+        <h2>Welcome, Seller! 👋</h2>
+
+        <p>
+            Manage your products and grow your business with PriyaMart.
+        </p>
+
+    </div>
+
+
+    <!-- Statistics -->
+
+    <div class="stats">
+
+        <div class="stat-card">
+
+            <h3>Total Products</h3>
+
+            <p id="productCount">2</p>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <h3>Total Value</h3>
+
+            <p>₹<span id="totalValue">63000</span></p>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <h3>Store Status</h3>
+
+            <p style="color:#22c55e;">
+                Active
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- Add Product -->
+
+    <div class="add-product">
+
+        <h2>➕ Add New Product</h2>
+
+        <div class="form-group">
+
+            <input
+                type="text"
+                id="productName"
+                placeholder="Product Name"
+            >
+
+            <input
+                type="number"
+                id="productPrice"
+                placeholder="Price"
+            >
+
+            <select id="productCategory">
+
+                <option value="Electronics">
+                    Electronics
+                </option>
+
+                <option value="Mobiles">
+                    Mobiles
+                </option>
+
+                <option value="Accessories">
+                    Accessories
+                </option>
+
+                <option value="Fashion">
+                    Fashion
+                </option>
+
+            </select>
+
+            <button
+                class="add-btn"
+                onclick="addProduct()">
+
+                Add Product
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- Search -->
+
+    <div class="search-box">
+
+        <h2>🔍 Search My Products</h2>
+
+        <br>
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search products..."
+            onkeyup="searchProducts()"
+        >
+
+    </div>
+
+
+    <!-- Product List -->
+
+    <h2 style="margin-bottom:20px;">
+        📦 My Products
+    </h2>
+
+    <div class="products" id="productList"></div>
+
+    <div class="empty" id="emptyMessage">
+        No products found.
+    </div>
+
+</div>
+
+
+<script>
+
+    let products=[];
+async function loadProducts(){const r=await fetch("/api/products");products=await r.json();renderProducts();}
+function renderProducts(){const l=document.getElementById("productList");l.innerHTML="";products.forEach(p=>{const icon=p.category==="Electronics"?"💻":p.category==="Mobiles"?"📱":p.category==="Accessories"?"🎧":p.category==="Fashion"?"👕":"📦";l.innerHTML+=`<div class="product-card" data-name="${escapeHtml(p.name.toLowerCase())}"><div class="product-icon">${icon}</div><h3>${escapeHtml(p.name)}</h3><p class="category">${escapeHtml(p.category)}</p><p class="price">₹${Number(p.price).toLocaleString()}</p><button class="delete-btn" onclick="deleteProduct(${p.id})">Delete Product</button></div>`});updateStats();searchProducts();}
+function escapeHtml(v){return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+async function addProduct(){const name=document.getElementById("productName").value.trim(),price=Number(document.getElementById("productPrice").value),category=document.getElementById("productCategory").value;const u=JSON.parse(sessionStorage.getItem("priyamartUser")||"null");if(!u){alert("Please login as a seller.");location.href="/login.html";return;}if(!name||price<=0){alert("Please enter a valid product name and price.");return;}const r=await fetch("/api/products",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({name,description:"Quality "+name,price,category,sellerId:u.id})});const x=await r.json();if(!r.ok){alert(x.message||"Could not add product.");return;}document.getElementById("productName").value="";document.getElementById("productPrice").value="";await loadProducts();alert("Product added successfully! 🎉");}
+async function deleteProduct(id){if(!confirm("Are you sure you want to delete this product?"))return;const r=await fetch("/api/products/"+id,{method:"DELETE"});if(!r.ok){const x=await r.json();alert(x.message||"Could not delete product.");return;}await loadProducts();}
+function updateStats(){document.getElementById("productCount").innerText=products.length;document.getElementById("totalValue").innerText=products.reduce((s,p)=>s+Number(p.price),0).toLocaleString();}
+function searchProducts(){const v=document.getElementById("searchInput").value.toLowerCase(),ps=document.querySelectorAll(".product-card");let found=false;ps.forEach(p=>{const ok=p.getAttribute("data-name").includes(v);p.style.display=ok?"block":"none";if(ok)found=true});document.getElementById("emptyMessage").style.display=found?"none":"block";}
+function logout(){sessionStorage.removeItem("priyamartUser");location.href="/login.html";}
+loadProducts();
+</script>
+
+</body>
+</html>

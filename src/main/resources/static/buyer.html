@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PriyaMart - Buyer Dashboard</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: white;
+        }
+
+        /* Header */
+        .header {
+            background: #1e293b;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            color: #60a5fa;
+        }
+
+        .logout {
+            background: #dc2626;
+            color: white;
+            padding: 10px 18px;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+
+        /* Main */
+        .container {
+            padding: 30px;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .welcome {
+            margin-bottom: 25px;
+        }
+
+        .welcome h2 {
+            margin-bottom: 5px;
+        }
+
+        /* Search */
+        .search-box {
+            background: #1e293b;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        /* Products */
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .product {
+            background: #1e293b;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .product:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-icon {
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+
+        .product h3 {
+            margin: 10px 0;
+        }
+
+        .price {
+            color: #22c55e;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .cart-btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .cart-btn:hover {
+            background: #1d4ed8;
+        }
+
+        /* Cart */
+        .cart {
+            background: #1e293b;
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 30px;
+        }
+
+        .cart h2 {
+            margin-top: 0;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #475569;
+        }
+
+        .remove-btn {
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .total {
+            text-align: right;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+            color: #22c55e;
+        }
+
+        /* Empty search message */
+        #noResult {
+            text-align: center;
+            display: none;
+            margin-top: 20px;
+            color: #94a3b8;
+        }
+
+        @media (max-width: 600px) {
+            .header {
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+        }
+    .product-image{width:100%;max-width:280px;height:190px;object-fit:cover;border-radius:16px;display:block;margin:0 auto 14px;}
+</style>
+</head>
+
+<body>
+
+<!-- Header -->
+<div class="header">
+    <h1>🛍️ PriyaMart</h1>
+
+    
+</div>
+
+<!-- Main Content -->
+<div class="container">
+
+    <div class="welcome">
+        <h2>Welcome, Buyer! 👋</h2>
+        <p>Find your favorite products at PriyaMart.</p>
+    </div>
+
+    <!-- Search -->
+    <div class="search-box">
+        <h2>🔍 Search Products</h2>
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search for products..."
+            onkeyup="searchProducts()"
+        >
+    </div>
+
+    <!-- Products -->
+    <h2>Available Products</h2>
+
+    <div class="products" id="productList"></div>
+
+    <p id="noResult">
+        No products found.
+    </p>
+
+
+    <!-- Cart -->
+    <div class="cart">
+
+        <h2>🛒 My Cart (<span id="cartCount">0</span>)</h2>
+
+        <div id="cartItems">
+            <p>Your cart is empty.</p>
+        </div>
+
+        <div class="total">
+            Total: ₹<span id="totalPrice">0</span>
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    let cart=[];
+async function loadProducts(){
+ const r=await fetch("/api/products"); const products=await r.json(); const list=document.getElementById("productList"); list.innerHTML="";
+ products.forEach(p=>{
+  const icon=p.category==="Electronics"?"💻":p.category==="Mobiles"?"📱":p.category==="Accessories"?"🎧":p.category==="Fashion"?"👕":"📦";
+  list.innerHTML+=`<div class="product" data-name="${String(p.name).toLowerCase()}"><div class="product-icon">${icon}</div><h3>${escapeHtml(p.name)}</h3><p>${escapeHtml(p.description||"Quality product")}</p><div class="price">₹${Number(p.price).toLocaleString()}</div><button class="cart-btn" onclick="addToCart(${p.id}, '${escapeJs(p.name)}')">Add to Cart</button></div>`;
+ }); searchProducts();
+}
+function escapeHtml(v){return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function escapeJs(v){return String(v).replace(/\/g,"\\").replace(/'/g,"\'");}
+async function addToCart(productId,name){
+ const u=JSON.parse(sessionStorage.getItem("priyamartUser")||"null"); if(!u){alert("Please login first.");location.href="/login.html";return;}
+ const r=await fetch("/api/cart",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({userId:u.id,productId})});
+ const x=await r.json(); if(!r.ok){alert(x.message||"Could not add to cart.");return;} await loadCart(); alert(name+" added to cart!");
+}
+async function loadCart(){const u=JSON.parse(sessionStorage.getItem("priyamartUser")||"null");if(!u)return;const r=await fetch("/api/cart/"+u.id);if(r.ok){cart=await r.json();updateCart();}}
+function updateCart(){
+ const ci=document.getElementById("cartItems"),cc=document.getElementById("cartCount"),tp=document.getElementById("totalPrice"); cc.innerText=cart.length;ci.innerHTML="";let total=0;
+ if(!cart.length)ci.innerHTML="<p>Your cart is empty.</p>"; else cart.forEach(i=>{total+=Number(i.price);ci.innerHTML+=`<div class="cart-item"><div><strong>${escapeHtml(i.name)}</strong><br>₹${Number(i.price).toLocaleString()}</div><button class="remove-btn" onclick="removeFromCart(${i.id})">Remove</button></div>`}); tp.innerText=total.toLocaleString();
+}
+async function removeFromCart(id){await fetch("/api/cart/"+id,{method:"DELETE"});await loadCart();}
+function searchProducts(){const v=document.getElementById("searchInput").value.toLowerCase(),ps=document.querySelectorAll(".product");let found=false;ps.forEach(p=>{const ok=p.getAttribute("data-name").includes(v);p.style.display=ok?"block":"none";if(ok)found=true});document.getElementById("noResult").style.display=found?"none":"block";}
+function logout(){sessionStorage.removeItem("priyamartUser");location.href="/login.html";}
+loadProducts();loadCart();
+</script>
+
+</body>
+</html>
